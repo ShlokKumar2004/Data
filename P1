@@ -1,3 +1,55 @@
 public class DoublyLinkedList {
     public Node head;
     public Node tail;
+    
+    
+    private Node next;    // in Node class
+    private Node prev;    // in Node class
+                          // Node constructor
+                          
+    public void remove(int data) {
+        Node current = head;
+        while (current != null) {
+            if (current.data == data) {
+                if (current == head) {
+                    head = current.next;
+                    if (head != null) {
+                        head.prev = null;
+                    } else {
+                        tail = null;
+                    }
+                } else if (current == tail) {
+                    tail = current.prev;
+                    tail.next = null;
+                } else {
+                    current.prev.next = current.next;
+                    current.next.prev = current.prev;
+                }
+                break;
+            }
+            current = current.next;
+        }
+    }
+    
+    public void insertt(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+        }
+    }
+       public Node find(int data) {
+        Node current = head;
+        while (current != null) {
+            if (current.data == data) {
+                return current;
+            }
+            current = current.next;
+        }
+        return null;
+    }
+}
